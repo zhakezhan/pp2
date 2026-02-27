@@ -1,103 +1,55 @@
-#An iterator is an object that can be iterated upon, meaning that you can traverse through all the values.
-#Lists, tuples, dictionaries, and sets are all iterable objects.
+#Generator: squares up to N
+def square_generator(n):
+    for i in range(n + 1):
+        yield i * i
 
-#1
-mytuple = ("apple", "banana", "cherry")
-myit = iter(mytuple)
 
-print(next(myit))
-print(next(myit))
-print(next(myit))
+print("Squares up to 5:")
+for num in square_generator(5):
+    print(num)
 
-#2
-mystr = "banana"
-myit = iter(mystr)
 
-print(next(myit))
-print(next(myit))
-print(next(myit))
-print(next(myit))
-print(next(myit))
-print(next(myit))
+#Even numbers between 0 and n (comma separated)
+def even_numbers(n):
+    for i in range(n + 1):
+        if i % 2 == 0:
+            yield i
 
-#3
-mytuple = ("apple", "banana", "cherry")
 
-for x in mytuple:
-  print(x)
+n = int(input("Enter n for even numbers: "))
+print(",".join(str(num) for num in even_numbers(n)))
 
-#4
-class MyNumbers:
-  def __iter__(self):
-    self.a = 1
-    return self
 
-  def __next__(self):
-    x = self.a
-    self.a += 1
-    return x
+#Numbers divisible by 3 and 4 between 0 and n
+def divisible_by_3_and_4(n):
+    for i in range(n + 1):
+        if i % 3 == 0 and i % 4 == 0:
+            yield i
 
-myclass = MyNumbers()
-myiter = iter(myclass)
 
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
-print(next(myiter))
+print("Divisible by 3 and 4 up to 100:")
+for num in divisible_by_3_and_4(100):
+    print(num)
 
-#5
-class MyNumbers:
-  def __iter__(self):
-    self.a = 1
-    return self
 
-  def __next__(self):
-    if self.a <= 20:
-      x = self.a
-      self.a += 1
-      return x
-    else:
-      raise StopIteration
+#Generator squares from a to b
+def squares(a, b):
+    for i in range(a, b + 1):
+        yield i * i
 
-myclass = MyNumbers()
-myiter = iter(myclass)
 
-for x in myiter:
-  print(x)
+print("Squares from 3 to 7:")
+for value in squares(3, 7):
+    print(value)
 
-#Generators are functions that can pause and resume their execution.
 
-#6
-def my_generator():
-  yield 1
-  yield 2
-  yield 3
+#Countdown generator from n to 0
+def countdown(n):
+    while n >= 0:
+        yield n
+        n -= 1
 
-for value in my_generator():
-  print(value)
 
-#7
-def count_up_to(n):
-  count = 1
-  while count <= n:
-    yield count
-    count += 1
-
-for num in count_up_to(5):
-  print(num)
-
-#8
-def simple_gen():
-  yield "Emil"
-  yield "Tobias"
-  yield "Linus"
-
-gen = simple_gen()
-print(next(gen))
-print(next(gen))
-print(next(gen))
-
-#9
-total = sum(x * x for x in range(10))
-print(total)
+print("Countdown from 5:")
+for num in countdown(5):
+    print(num)

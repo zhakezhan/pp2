@@ -1,37 +1,29 @@
-#1
 import datetime
 
-x = datetime.datetime.now()
-print(x)
 
-#2
-import datetime
+#Subtract five days from current date
+today = datetime.datetime.now()
+five_days_ago = today - datetime.timedelta(days=5)
+print("Five days ago:", five_days_ago)
 
-x = datetime.datetime.now()
 
-print(x.year)
-print(x.strftime("%A"))
+#Print yesterday, today, tomorrow
+yesterday = today - datetime.timedelta(days=1)
+tomorrow = today + datetime.timedelta(days=1)
 
-#3
-import datetime
+print("Yesterday:", yesterday.date())
+print("Today:", today.date())
+print("Tomorrow:", tomorrow.date())
 
-x = datetime.datetime(2020, 5, 17)
 
-print(x)
+#Drop microseconds
+no_microseconds = today.replace(microsecond=0)
+print("Without microseconds:", no_microseconds)
 
-#4
-import datetime
 
-x = datetime.datetime(2018, 6, 1)
+#Difference between two dates in seconds
+date1 = datetime.datetime(2025, 1, 1)
+date2 = datetime.datetime(2025, 3, 1)
 
-print(x.strftime("%B"))
-
-#5
-from datetime import datetime
-
-time1 = datetime.strptime("14:30:00", "%H:%M:%S")
-time2 = datetime.strptime("18:45:30", "%H:%M:%S")
-
-difference = time2 - time1
-
-print("Time difference:", difference)
+difference = date2 - date1
+print("Difference in seconds:", difference.total_seconds())

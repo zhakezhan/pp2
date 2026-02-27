@@ -1,68 +1,18 @@
-#JSON is a syntax for storing and exchanging data.
-
-#1
 import json
 
-# some JSON:
-x =  '{ "name":"John", "age":30, "city":"New York"}'
+with open("sample-data.json", "r") as file:
+    data = json.load(file)
 
-# parse x:
-y = json.loads(x)
+print("Interface Status")
+print("=" * 80)
 
-# the result is a Python dictionary:
-print(y["age"])
+print(f"{'DN':50} {'Description':20} {'Speed':6} {'MTU':6}")
+print("-" * 50 + " " + "-" * 20 + " " + "-" * 6 + " " + "-" * 6)
 
-#2
-import json
-
-# a Python object (dict):
-x = {
-  "name": "John",
-  "age": 30,
-  "city": "New York"
-}
-
-# convert into JSON:
-y = json.dumps(x)
-
-# the result is a JSON string:
-print(y)
-
-#3
-import json
-
-print(json.dumps({"name": "John", "age": 30}))
-print(json.dumps(["apple", "bananas"]))
-print(json.dumps(("apple", "bananas")))
-print(json.dumps("hello"))
-print(json.dumps(42))
-print(json.dumps(31.76))
-print(json.dumps(True))
-print(json.dumps(False))
-print(json.dumps(None))
-
-#4
-import json
-
-x = {
-  "name": "John",
-  "age": 30,
-  "married": True,
-  "divorced": False,
-  "children": ("Ann","Billy"),
-  "pets": None,
-  "cars": [
-    {"model": "BMW 230", "mpg": 27.5},
-    {"model": "Ford Edge", "mpg": 24.1}
-  ]
-}
-
-print(json.dumps(x))
-
-#5
-#Use the indent parameter to define the numbers of indents:
-#Use the separators parameter to change the default separator:
-json.dumps(x, indent=4, separators=(". ", " = "))
-
-#6
-json.dumps(x, indent=4, sort_keys=True)
+for item in data["imdata"]:
+    iface = item["l1PhysIf"]["attributes"]  
+    dn = iface["dn"]
+    descr = iface.get("descr", "")
+    speed = iface.get("speed", "")
+    mtu = iface.get("mtu", "")
+    print(f"{dn:50} {descr:20} {speed:6} {mtu:6}")

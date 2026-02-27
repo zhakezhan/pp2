@@ -1,34 +1,32 @@
-#1
-x = min(5, 10, 25)
-y = max(5, 10, 25)
-
-print(x)
-print(y)
-
-#2
-x = abs(-7.25)
-print(x)
-
-#3
-x = pow(4, 3)
-
-print(x)
-
-#4
-import math
-x = math.sqrt(64)
-print(x)
-
-#5
 import math
 
-x = math.ceil(1.4)
-y = math.floor(1.4)
 
-print(x) # returns 2
-print(y) # returns 1
+#Degree to radian
+degree = float(input("Input degree: "))
+radian = degree * (math.pi / 180)
+print("Output radian:", round(radian, 6))
 
-#6
-import math
-x = math.pi
-print(x)
+
+#Area of trapezoid
+height = float(input("Height: "))
+base1 = float(input("Base, first value: "))
+base2 = float(input("Base, second value: "))
+
+area_trapezoid = ((base1 + base2) / 2) * height
+print("Expected Output:", area_trapezoid)
+
+
+#Area of regular polygon
+n = int(input("Input number of sides: "))
+side = float(input("Input the length of a side: "))
+
+area_polygon = (n * side ** 2) / (4 * math.tan(math.pi / n))
+print("The area of the polygon is:", round(area_polygon, 2))
+
+
+#Area of parallelogram
+base = float(input("Length of base: "))
+height_para = float(input("Height of parallelogram: "))
+
+area_parallelogram = base * height_para
+print("Expected Output:", area_parallelogram)
