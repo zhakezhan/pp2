@@ -3,7 +3,7 @@ import json
 
 
 def clean_money(value):
-    # convert "1 234,56" → 1234.56
+
     value = value.replace(" ", "").replace(",", ".")
     return float(value)
 
