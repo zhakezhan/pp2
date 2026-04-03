@@ -44,21 +44,17 @@ def insert_from_csv(filename="contacts.csv"):
 
 
 # Insert or update contact manually using procedure
-def insert_from_console():
+def add_or_update():
     name = input("Enter name: ")
-    phone = input("Enter phone: ")
-
-    conn = connect()
-    cur = conn.cursor()
-
-    cur.execute("CALL upsert_contact(%s, %s)", (name, phone))
-
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    print("Contact saved (insert/update).")
-
+    phone = input("Enter phone (+77771112233): ")
+    try:
+        with connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute("CALL upsert_contact(%s, %s)", (name, phone))
+                conn.commit()
+                print("Contact saved.")
+    except Exception as e:
+        print(f"Error: {e}") # This catches if the phone is wrong
 
 # Show all contacts
 def show_all():
@@ -139,17 +135,25 @@ def delete_contact():
 def bulk_insert():
     names = input("Enter names (comma separated): ").split(',')
     phones = input("Enter phones (comma separated): ").split(',')
+    
+    # Clean the lists
+    names = [n.strip() for n in names]
+    phones = [p.strip() for p in phones]
 
-    conn = connect()
-    cur = conn.cursor()
-
-    cur.execute("CALL bulk_insert(%s, %s)", (names, phones))
-
-    conn.commit()
-    cur.close()
-    conn.close()
-
-    print("Bulk insert completed (invalid phones will be shown as NOTICE).")
+    try:
+        with connect() as conn:
+            with conn.cursor() as cur:
+                # We send the WHOLE LIST to the database at once
+                cur.execute("CALL bulk_insert_with_report(%s, %s, %s)", (names, phones, ""))
+                result = cur.fetchone()
+                conn.commit()
+                
+                if result and result[0]:
+                    print(f"Validation Errors: {result[0]}")
+                else:
+                    print("All contacts imported!")
+    except Exception as e:
+        print(f"❌ System Error: {e}")
 
 
 # Main menu
@@ -172,7 +176,7 @@ def main():
         if choice == '1':
             insert_from_csv()
         elif choice == '2':
-            insert_from_console()
+            add_or_update()
         elif choice == '3':
             show_all()
         elif choice == '4':
