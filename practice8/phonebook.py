@@ -144,7 +144,7 @@ def bulk_insert():
         with connect() as conn:
             with conn.cursor() as cur:
                 # We send the WHOLE LIST to the database at once
-                cur.execute("CALL bulk_insert_with_report(%s, %s, %s)", (names, phones, ""))
+                cur.execute("CALL bulk_insert_with_report(%s, %s, %s::TEXT)", (names, phones, ""))
                 result = cur.fetchone()
                 conn.commit()
                 
@@ -153,7 +153,7 @@ def bulk_insert():
                 else:
                     print("All contacts imported!")
     except Exception as e:
-        print(f"❌ System Error: {e}")
+        print(f"System Error: {e}")
 
 
 # Main menu
