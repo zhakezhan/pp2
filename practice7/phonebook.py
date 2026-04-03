@@ -18,7 +18,7 @@ def create_table():
     conn.close()
 
 # Вставка контактов из CSV
-def insert_from_csv(filename='contacts.csv'):
+def insert_from_csv(filename='C:\Users\user\OneDrive\Desktop\practice1\practice7\contacts.csv'):
     sql = "INSERT INTO phonebook (first_name, phone) VALUES (%s, %s) ON CONFLICT (first_name, phone) DO NOTHING"
     conn = connect()
     cur = conn.cursor()
