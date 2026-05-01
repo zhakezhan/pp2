@@ -1,0 +1,32 @@
+WIDTH, HEIGHT = 600, 600
+BLOCK_SIZE    = 20
+FPS_BASE      = 10
+
+GRID_COLS = WIDTH  // BLOCK_SIZE
+GRID_ROWS = HEIGHT // BLOCK_SIZE
+
+BLACK      = (0,   0,   0)
+WHITE      = (255, 255, 255)
+GRAY       = (40,  40,  55)
+LIGHT_GRAY = (160, 160, 160)
+ACCENT     = (255, 200, 0)
+RED        = (220, 50,  50)
+DARK_RED   = (120, 0,   0)
+GREEN      = (60,  200, 80)
+DARK_GREEN = (30,  120, 50)
+CYAN       = (0,   210, 210)
+ORANGE     = (255, 140, 0)
+PURPLE     = (160, 80,  220)
+DARK_BG    = (14,  14,  24)
+PANEL      = (28,  28,  45)
+PANEL2     = (38,  38,  58)
+
+FOOD_COLORS   = {1: (220, 60, 60), 2: (255, 140, 0), 3: (255, 220, 40)}
+POISON_COLOR  = (100, 0,   20)
+POWERUP_COLOR = {"speed": CYAN, "slow": PURPLE, "shield": ACCENT}
+
+FOOD_TIMER_LIMIT  = 6000
+POWERUP_LIFETIME  = 8000
+POWERUP_DURATION  = 5000
+LEVEL_UP_EVERY    = 5
+OBSTACLE_PER_LEVEL = 4

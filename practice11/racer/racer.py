@@ -92,14 +92,66 @@ class Enemy(pygame.sprite.Sprite):
             ENEMY_PASSED += 1 # Count enemies avoided
             self.spawn()
 
+# Constants for Power-ups
+POWERUPS = {
+    "Nitro": {"color": (255, 69, 0), "duration": 5000},
+    "Shield": {"color": (0, 191, 255), "duration": 0}, # Lasts until hit
+    "Repair": {"color": (50, 205, 50), "duration": 0}  # Instant
+}
+
+class PowerUp(pygame.sprite.Sprite):
+    def __init__(self, p_type):
+        super().__init__()
+        self.type = p_type
+        self.image = pygame.Surface((30, 30))
+        self.image.fill(POWERUPS[p_type]["color"])
+        self.rect = self.image.get_rect()
+        self.spawn_time = pygame.time.get_ticks()
+        self.spawn()
+
+    def spawn(self):
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), -50)
+
+    def update(self, speed):
+        self.rect.move_ip(0, speed)
+        # Rule 3.3: Power-ups disappear after timeout (e.g., 7 seconds on road)
+        if pygame.time.get_ticks() - self.spawn_time > 7000 or self.rect.top > SCREEN_HEIGHT:
+            self.kill()
+
+class Hazard(pygame.sprite.Sprite):
+    def __init__(self, h_type):
+        super().__init__()
+        self.h_type = h_type # "Oil", "Barrier", "Pothole"
+        # In a real app, load images here. For now, use colored rects.
+        self.image = pygame.Surface((40, 40), pygame.SRCALPHA)
+        if h_type == "Oil": 
+            pygame.draw.ellipse(self.image, (50, 50, 50), [0, 0, 40, 20])
+        self.rect = self.image.get_rect()
+        self.spawn()
+
+    def spawn(self):
+        self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), -100)
+
+    def update(self, speed):
+        self.rect.move_ip(0, speed)
+        if self.rect.top > SCREEN_HEIGHT:
+            self.kill()
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load(get_path("image/Player.png"))
         self.rect = self.image.get_rect()
         self.rect.center = (160, 520)
+        self.shielded = False
+        self.nitro_active = False
+        self.nitro_expiry = 0
 
     def move(self):
+        speed = 10 if self.nitro_active else 5
+        # Check nitro expiry
+        if self.nitro_active and pygame.time.get_ticks() > self.nitro_expiry:
+            self.nitro_active = False
         pressed_keys = pygame.key.get_pressed()
         if self.rect.left > 0 and pressed_keys[K_LEFT]:
             self.rect.move_ip(-5, 0)
@@ -162,6 +214,7 @@ while True:
         pygame.time.wait(2000)
         pygame.quit()
         sys.exit() 
+
         
     pygame.display.update()
     FramePerSec.tick(FPS)

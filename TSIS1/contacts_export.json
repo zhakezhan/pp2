@@ -1,0 +1,54 @@
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice@gmail.com",
+    "birthday": "1995-03-12",
+    "group": "Friend",
+    "phones": [
+      {
+        "phone": "77012345678",
+        "type": "mobile"
+      }
+    ]
+  },
+  {
+    "first_name": "Bob",
+    "last_name": "Jones",
+    "email": "bob@work.com",
+    "birthday": "1988-07-22",
+    "group": "Work",
+    "phones": [
+      {
+        "phone": "77087654321",
+        "type": "work"
+      }
+    ]
+  },
+  {
+    "first_name": "Carol",
+    "last_name": "White",
+    "email": "carol@gmail.com",
+    "birthday": "2000-01-01",
+    "group": "Family",
+    "phones": [
+      {
+        "phone": "77001112233",
+        "type": "work"
+      }
+    ]
+  },
+  {
+    "first_name": "Nargiz",
+    "last_name": "Zhakezhan",
+    "email": "nargiz.zhakezhan@gmail.com",
+    "birthday": "2008-04-22",
+    "group": "Friend",
+    "phones": [
+      {
+        "phone": "77770001100",
+        "type": "mobile"
+      }
+    ]
+  }
+]
